@@ -3,12 +3,29 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
 body {
     min-height: 100vh;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: center;
     align-content: center;
+}
+
+.screen {
+    width: 400px;
+    background-color: blue;
+    color: white;
+    font-size: 50px;
+    border: 5px black solid;
+    align-content: center;
+    aspect-ratio: 4/1;
+    overflow: scroll;
+}
+
+.button-pad {
+    display: flex;
+    flex-flow: row wrap;
 }
 
 .num-container {
@@ -28,4 +45,8 @@ body {
     flex-basis: 100px;
     background-color: grey;
     border: 1px black solid;
+}
+
+.square:hover {
+    background-color: lightgray;
 }

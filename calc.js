@@ -1,5 +1,6 @@
 const numContainer = document.querySelector(".num-container");
 const opContainer = document.querySelector(".operations-container");
+const screen = document.querySelector(".screen");
 
 const numbersArray = [7,8,9,4,5,6,1,2,3,0];
 const othersArray = [".", "="];
@@ -14,6 +15,9 @@ function createNumberPad() {
 
         const numText = numbersArray[i];
         square.innerText = numText;
+
+        // https://www.reddit.com/r/learnjavascript/comments/twljtu/how_do_i_pass_arguments_to_a_function_inside/
+        square.addEventListener("click", event => {numberButtonPressed(square.textContent)});
 
         numContainer.appendChild(square);
     }
@@ -31,7 +35,10 @@ function createOperationsPad() {
     }
 }
 
-
+function numberButtonPressed(btnText) {
+    screen.innerText = screen.textContent + btnText;
+    console.log(screen.innerText);
+}
 
 createNumberPad();
 createOperationsPad();
