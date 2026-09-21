@@ -19,4 +19,19 @@ function createNumberPad() {
     }
 }
 
+function createOperationsPad() {
+    for (let i = 0; i < operationsArray.length; i++) {
+        const square = document.createElement("button");
+        square.className = "square";
+
+        const numText = operationsArray[i];
+        square.innerText = numText;
+
+        opContainer.appendChild(square);
+    }
+}
+
+
+
 createNumberPad();
+createOperationsPad();
