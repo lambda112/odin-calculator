@@ -1,0 +1,23 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.num-container {
+    display: flex;
+    flex-flow: row wrap;
+    width: 300px;
+}
+
+.operations-container {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.square {
+    aspect-ratio: 1/1;
+    flex-basis: 100px;
+    background-color: grey;
+    border: 1px black solid;
+}
