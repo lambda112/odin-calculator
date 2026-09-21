@@ -11,9 +11,12 @@ function createNumberPad() {
     for (let i = 0; i < numbersArray.length; i++) {
         const square = document.createElement("button");
         square.className = "square";
+
+        const numText = numbersArray[i];
+        square.innerText = numText;
+
         numContainer.appendChild(square);
     }
 }
-
 
 createNumberPad();
