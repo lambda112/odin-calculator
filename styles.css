@@ -12,6 +12,10 @@ body {
     align-content: center;
 }
 
+/*
+https://stackoverflow.com/questions/51457170/scroll-text-when-it-overflows-container
+https://stackoverflow.com/questions/19212188/avoid-line-break-between-html-elements
+*/
 .screen {
     width: 400px;
     background-color: blue;
@@ -19,8 +23,9 @@ body {
     font-size: 50px;
     border: 5px black solid;
     align-content: center;
-    aspect-ratio: 4/1;
-    overflow: scroll;
+    aspect-ratio: 3.5/1;
+    white-space: nowrap;
+    overflow-x: auto;
 }
 
 .button-pad {
@@ -45,6 +50,7 @@ body {
     flex-basis: 100px;
     background-color: grey;
     border: 1px black solid;
+    font-size: 18px;
 }
 
 .square:hover {
