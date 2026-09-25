@@ -57,36 +57,50 @@ function createOperationsPad() {
     }
 }
 
-function buttonPressed(btnText) {
-    const isOperation = operationsArray.includes(btnText);
-    const isNumber = numbersArray.includes(Number(btnText));
-    let lastValuePressed = valuesPressed.at(-1);
 
-    if (screen.textContent === errorDivisionText) {screen.textContent = ""};
-
-    if (isNumber) {
-        screen.innerText = screen.textContent + btnText;
-        lastValuePressed = lastValuePressed === undefined ? lastValuePressed : String(lastValuePressed);
-        if (valuesPressed.length !== 0 && numbersArray.includes(Number(lastValuePressed.slice(-1)))){
-            valuesPressed[valuesPressed.length - 1] = lastValuePressed + btnText;
-        }
-
-        else {
-            valuesPressed.push(btnText);
-        }
-    } 
-
-    else if (isOperation && operationsArray.includes(lastValuePressed) === false) {
-        valuesPressed.push(btnText);
-        if (valuesPressed.length === 4) {
-            equalsPressed();
-        } 
-
-        screen.innerText = screen.textContent + btnText;
+function numberPressed(lastValuePressed, btnText) {
+    screen.innerText = screen.textContent + btnText;
+    lastValuePressed = lastValuePressed === undefined ? lastValuePressed : String(lastValuePressed);
+    
+    if (valuesPressed.length !== 0 && numbersArray.includes(Number(lastValuePressed.slice(-1)))){
+        valuesPressed[valuesPressed.length - 1] = lastValuePressed + btnText;
     }
 
-    console.log(valuesPressed, btnText);
+    else {
+        valuesPressed.push(btnText);
+    }
 }
+
+
+function operationPressed(btnText) {
+    valuesPressed.push(btnText);
+    if (valuesPressed.length === 4) {
+        equalsPressed();
+    } 
+
+    screen.innerText = screen.textContent + btnText;
+}
+
+function chooseOperation(operator, num1, num2) {   
+    switch(operator) {
+        case "+":
+            return addition(num1,num2);
+            break;
+        
+        case "-":
+            return subtraction(num1,num2);
+            break;
+
+        case "x":
+            return multiplication(num1,num2);
+            break;
+
+        case "÷":
+            return division(num1,num2);
+            break;
+    }
+}
+
 
 function equalsPressed() {
     let result = "None";
@@ -101,26 +115,9 @@ function equalsPressed() {
     const operator = valuesPressed[1];
     const num2 = valuesPressed[2]; 
 
-    switch(operator) {
-        case "+":
-            result = addition(num1,num2);
-            break;
-        
-        case "-":
-            result = subtraction(num1,num2);
-            break;
+    result = chooseOperation(operator, num1, num2);
 
-        // Change Below
-        case "x":
-            result = multiplication(num1,num2);
-            break;
-
-        case "÷":
-            result = division(num1,num2);
-            break;
-    }
-
-    if ([num1,num2].includes("0")) {
+    if ([num1,num2].includes("0") && operator==="÷")  {
         valuesPressed = [];
         screen.textContent = errorDivisionText;
     }
@@ -131,11 +128,30 @@ function equalsPressed() {
     
 }
 
+function buttonPressed(btnText) {
+    const isOperation = operationsArray.includes(btnText);
+    const isNumber = numbersArray.includes(Number(btnText));
+
+    if (screen.textContent === errorDivisionText) {screen.textContent = ""};
+
+    if (isNumber) {
+        numberPressed(valuesPressed.at(-1), btnText);
+    } 
+
+    else if (isOperation && operationsArray.includes(valuesPressed.at(-1)) === false && valuesPressed.length !== 0) {
+        operationPressed(btnText)
+    }
+
+    console.log(valuesPressed, btnText);
+}
+
+
 function addition(num1, num2) {
     result = Number(num1) + Number(num2);
     valuesPressed = resetValuesPressed(result)
     return result;
 }
+
 
 function subtraction(num1, num2) {
     result = Number(num1) - Number(num2);
@@ -143,18 +159,20 @@ function subtraction(num1, num2) {
     return result;
 }
 
+
 function multiplication(num1, num2) {
     result = Number(num1) * Number(num2);
     valuesPressed = resetValuesPressed(result)
     return result;
 }
 
+
 function division(num1, num2) {
     result = Number(num1) / Number(num2);
     valuesPressed = resetValuesPressed(result);
     return result;
-
 }
+
 
 function resetValuesPressed(result) {
     if (valuesPressed.length === 4){
