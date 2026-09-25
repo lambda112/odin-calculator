@@ -9,6 +9,7 @@ const undoButtonsArray = ["<---" , "AC"]
 
 let valuesPressed = [];
 const loopLength = numbersArray.length + othersArray.length;
+const errorDivisionText = "Calculator not know!";
 
 
 function createNumberPad() {
@@ -61,7 +62,7 @@ function buttonPressed(btnText) {
     const isNumber = numbersArray.includes(Number(btnText));
     let lastValuePressed = valuesPressed.at(-1);
 
-    console.log(lastValuePressed)
+    if (screen.textContent === errorDivisionText) {screen.textContent = ""};
 
     if (isNumber) {
         screen.innerText = screen.textContent + btnText;
@@ -75,12 +76,16 @@ function buttonPressed(btnText) {
         }
     } 
 
-    else if (isOperation && operationsArray.includes(lastValuePressed) === false && valuesPressed.length !== 3) {
+    else if (isOperation && operationsArray.includes(lastValuePressed) === false) {
         valuesPressed.push(btnText);
+        if (valuesPressed.length === 4) {
+            equalsPressed();
+        } 
+
         screen.innerText = screen.textContent + btnText;
     }
 
-    console.log(valuesPressed, btnText, valuesPressed.length);
+    console.log(valuesPressed, btnText);
 }
 
 function equalsPressed() {
@@ -107,28 +112,57 @@ function equalsPressed() {
 
         // Change Below
         case "x":
-            result = subtraction(num1,num2);
+            result = multiplication(num1,num2);
             break;
 
         case "÷":
-            result = subtraction(num1,num2);
+            result = division(num1,num2);
             break;
     }
 
-    screen.innerText = result === "None" ? screen.innerText : result;
+    if ([num1,num2].includes("0")) {
+        valuesPressed = [];
+        screen.textContent = errorDivisionText;
+    }
+
+    else {
+        screen.innerText = result === "None" ? screen.innerText : result;
+    }
+    
 }
 
 function addition(num1, num2) {
     result = Number(num1) + Number(num2);
-    valuesPressed = [result];
+    valuesPressed = resetValuesPressed(result)
     return result;
 }
 
 function subtraction(num1, num2) {
     result = Number(num1) - Number(num2);
-    valuesPressed = [result];
+    valuesPressed = resetValuesPressed(result)
+    return result;
+}
+
+function multiplication(num1, num2) {
+    result = Number(num1) * Number(num2);
+    valuesPressed = resetValuesPressed(result)
+    return result;
+}
+
+function division(num1, num2) {
+    result = Number(num1) / Number(num2);
+    valuesPressed = resetValuesPressed(result);
     return result;
 
+}
+
+function resetValuesPressed(result) {
+    if (valuesPressed.length === 4){
+        const newOperator = valuesPressed[3];
+        return [result, newOperator];
+    }
+
+    return [result];
 }
 
 createNumberPad();
