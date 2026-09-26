@@ -10,6 +10,47 @@ body {
     flex-flow: column wrap;
     justify-content: center;
     align-content: center;
+    background-color: rgb(100, 2, 2);
+}
+
+.antenna-container {
+    display: flex;
+    flex-direction: column;
+    width: 2.5%;
+    margin-left: auto;
+    align-items: end;
+}
+
+.antenna-bottom {
+    width: 50%;
+    height: 20px;
+    background-color: #a5a6a8;
+}
+
+.antenna-middle {
+    width: 20%;
+    height: 30px;
+    background-color: #adafb2;
+}
+
+.antenna-top {
+    width: 10%;
+    height: 90px;
+    background-color: #c0c2c5;
+}
+
+.antenna-top, .antenna-middle, .antenna-bottom {
+    box-shadow: -4px 0px 0px rgb(139, 15, 15);
+}
+
+.calculator-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(150, 71, 71);
+    padding: 40px;
+    gap: 20px;
+    box-shadow: -10px 0px rgb(139, 15, 15);
 }
 
 /*
@@ -17,42 +58,48 @@ https://stackoverflow.com/questions/51457170/scroll-text-when-it-overflows-conta
 https://stackoverflow.com/questions/19212188/avoid-line-break-between-html-elements
 */
 .screen {
-    width: 400px;
-    background-color: blue;
+    width: 300px;
+    background-color: darkblue;
     color: white;
-    font-size: 50px;
-    border: 5px black solid;
+    text-shadow: 2px 2px 4px lightcoral;
+    font-size: 35px;
     align-content: center;
-    aspect-ratio: 3.5/1;
+    aspect-ratio: 3/1;
     white-space: nowrap;
     overflow-x: auto;
+    padding: 20px;
+    border: 2px maroon solid;
 }
 
 .button-pad {
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
 }
 
 .num-container {
     display: flex;
     flex-flow: row wrap;
-    width: 300px;
+    width: 225px;
 }
 
 .operations-container {
     display: flex;
     flex-flow: column wrap;
-    width: 100px;
+    width: 75px;
 }
 
 .square {
     aspect-ratio: 1/1;
-    flex-basis: 100px;
-    background-color: grey;
-    border: 1px black solid;
+    flex-basis: 75px;
+    background-color: black;
+    border: 2px maroon solid;
+    color: white;
     font-size: 18px;
 }
 
 .square:hover {
-    background-color: lightgray;
+    background-color: white;
+    color: black;
+    font-size: 24px;
 }

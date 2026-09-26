@@ -85,19 +85,15 @@ function chooseOperation(operator, num1, num2) {
     switch(operator) {
         case "+":
             return addition(num1,num2);
-            break;
         
         case "-":
             return subtraction(num1,num2);
-            break;
 
         case "x":
             return multiplication(num1,num2);
-            break;
 
         case "÷":
             return division(num1,num2);
-            break;
     }
 }
 
@@ -105,7 +101,6 @@ function chooseOperation(operator, num1, num2) {
 function equalsPressed() {
     let result = "None";
 
-    console.log(valuesPressed.length)
     if (valuesPressed.length < 3) {
         console.log("worked");
         return "Two numbers and operator not entered!";
@@ -120,6 +115,7 @@ function equalsPressed() {
     if ([num1,num2].includes("0") && operator==="÷")  {
         valuesPressed = [];
         screen.textContent = errorDivisionText;
+        screen.style.fontSize = "30px";
     }
 
     else {
@@ -132,7 +128,7 @@ function buttonPressed(btnText) {
     const isOperation = operationsArray.includes(btnText);
     const isNumber = numbersArray.includes(Number(btnText));
 
-    if (screen.textContent === errorDivisionText) {screen.textContent = ""};
+    if (screen.textContent === errorDivisionText) {screen.style.fontSize = "30px"; screen.textContent = "";}
 
     if (isNumber) {
         numberPressed(valuesPressed.at(-1), btnText);
