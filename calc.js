@@ -26,6 +26,7 @@ function createNumberPad() {
     }
 }
 
+
 function createOtherPad() {
     for (let i = 0; i < othersArray.length; i++) {
         const square = document.createElement("button");
@@ -37,13 +38,17 @@ function createOtherPad() {
         // https://www.reddit.com/r/learnjavascript/comments/twljtu/how_do_i_pass_arguments_to_a_function_inside/
 
         if (i === 1) {
-            console.log("Listener added!" + " " + numText)
             square.addEventListener("click", event => {equalsPressed(screen.innerText)});
+        }
+
+        if (i === 0) {
+            square.addEventListener("click", event => {decimalPressed()});
         }
         
         numContainer.appendChild(square);
     }
 }
+
 
 function createOperationsPad() {
     for (let i = 0; i < operationsArray.length; i++) {
@@ -61,8 +66,11 @@ function createOperationsPad() {
 function numberPressed(lastValuePressed, btnText) {
     screen.innerText = screen.textContent + btnText;
     lastValuePressed = lastValuePressed === undefined ? lastValuePressed : String(lastValuePressed);
+    const isArrayLengthZero = valuesPressed.length !== 0;
+    const isLastDigitNum = lastValuePressed === undefined || valuesPressed.length === 0 ? false : numbersArray.includes(Number(lastValuePressed.slice(-1)));
+    const isLastDigitDecimal = lastValuePressed === undefined || valuesPressed.length === 0 ? false : String(valuesPressed[valuesPressed.length - 1]).includes(".");
     
-    if (valuesPressed.length !== 0 && numbersArray.includes(Number(lastValuePressed.slice(-1)))){
+    if (isArrayLengthZero && isLastDigitNum || isLastDigitDecimal){
         valuesPressed[valuesPressed.length - 1] = lastValuePressed + btnText;
     }
 
@@ -81,6 +89,7 @@ function operationPressed(btnText) {
     screen.innerText = screen.textContent + btnText;
 }
 
+
 function chooseOperation(operator, num1, num2) {   
     switch(operator) {
         case "+":
@@ -94,6 +103,19 @@ function chooseOperation(operator, num1, num2) {
 
         case "÷":
             return division(num1,num2);
+    }
+}
+
+function decimalPressed() {
+
+    if (valuesPressed.length === 0 || operationsArray.includes(valuesPressed.at(-1))) {
+        return "Decimal Cant Be Placed First."
+    }
+
+    const isDecimalInsideString = String(valuesPressed.at(-1)).includes(".");
+
+    if (isDecimalInsideString === false) {
+        numberPressed(valuesPressed.at(-1), ".");
     }
 }
 
