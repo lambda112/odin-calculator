@@ -46,10 +46,8 @@ body {
 .calculator-body{
     display: flex;
     flex-direction: column;
-    align-items: center;
     background-color: rgb(150, 71, 71);
     padding: 40px;
-    gap: 20px;
     box-shadow: -10px 0px rgb(139, 15, 15);
 }
 
@@ -69,6 +67,14 @@ https://stackoverflow.com/questions/19212188/avoid-line-break-between-html-eleme
     overflow-x: auto;
     padding: 20px;
     border: 2px maroon solid;
+}
+
+.reset-options {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .button-pad {
@@ -99,6 +105,11 @@ https://stackoverflow.com/questions/19212188/avoid-line-break-between-html-eleme
 }
 
 .square:hover {
+    background-color: white;
+    color: black;
+}
+
+.button-pad .square:hover {
     background-color: white;
     color: black;
     font-size: 24px;

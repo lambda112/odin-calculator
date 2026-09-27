@@ -1,5 +1,6 @@
 const numContainer = document.querySelector(".num-container");
 const opContainer = document.querySelector(".operations-container");
+const resetContainer = document.querySelector(".reset-options")
 const screen = document.querySelector(".screen");
 
 const numbersArray = [7,8,9,4,5,6,1,2,3,0];
@@ -62,6 +63,32 @@ function createOperationsPad() {
     }
 }
 
+function createResetPad() {
+    for (let i = 0; i < undoButtonsArray.length; i++) {
+        const square = document.createElement("button");
+        square.className = "square";
+
+        const numText = undoButtonsArray[i];
+        square.innerText = numText;
+        square.style.flexBasis = "37.5px";
+
+        if (i === 0) {
+            square.addEventListener("click", event => {buttonPressed(square.textContent)});
+        } 
+
+        if (i === 1) {
+            square.addEventListener("click", event => {(clearPressed())});
+        } 
+        
+        resetContainer.appendChild(square);
+    }
+}
+
+function clearPressed() {
+    valuesPressed = [];
+    screen.textContent = "";
+}
+
 
 function numberPressed(lastValuePressed, btnText) {
     screen.innerText = screen.textContent + btnText;
@@ -106,6 +133,7 @@ function chooseOperation(operator, num1, num2) {
     }
 }
 
+
 function decimalPressed() {
 
     if (valuesPressed.length === 0 || operationsArray.includes(valuesPressed.at(-1))) {
@@ -145,6 +173,7 @@ function equalsPressed() {
     }
     
 }
+
 
 function buttonPressed(btnText) {
     const isOperation = operationsArray.includes(btnText);
@@ -201,6 +230,7 @@ function resetValuesPressed(result) {
     return [result];
 }
 
+createResetPad();
 createNumberPad();
 createOtherPad();
 createOperationsPad();
