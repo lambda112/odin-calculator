@@ -73,7 +73,7 @@ function createResetPad() {
         square.style.flexBasis = "37.5px";
 
         if (i === 0) {
-            square.addEventListener("click", event => {buttonPressed(square.textContent)});
+            square.addEventListener("click", event => {undoPressed()});
         } 
 
         if (i === 1) {
@@ -87,6 +87,21 @@ function createResetPad() {
 function clearPressed() {
     valuesPressed = [];
     screen.textContent = "";
+}
+
+function undoPressed() {
+    if (valuesPressed.length === 0) {
+        return "Empty!"
+    }
+
+    console.log(valuesPressed);
+    valuesPressed[valuesPressed.length-1] = String(valuesPressed.at(-1)).slice(0, -1);
+
+    if (valuesPressed[valuesPressed.length-1] === "") {
+        valuesPressed.length -= 1;
+    }
+    
+    screen.textContent = valuesPressed.join("");
 }
 
 
