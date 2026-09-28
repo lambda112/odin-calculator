@@ -4,6 +4,8 @@ const resetContainer = document.querySelector(".reset-options")
 const screen = document.querySelector(".screen");
 
 const numbersArray = [7,8,9,4,5,6,1,2,3,0];
+const keyNumbersArray = numbersArray.map(num => "Digit" + String(num))
+console.log(keyNumbersArray);
 const othersArray = [".", "="];
 const operationsArray = ["÷","x","-","+"]
 const undoButtonsArray = ["<---" , "AC"]
@@ -11,6 +13,36 @@ const undoButtonsArray = ["<---" , "AC"]
 let valuesPressed = [];
 const loopLength = numbersArray.length + othersArray.length;
 const errorDivisionText = "Calculator not know!";
+
+window.addEventListener("keydown", function (event) {
+    let key = event.key === "/" ? "÷" : event.key;
+    key = event.key === "\\" ? "÷" : event.key;
+
+    console.log(event.key, numbersArray.includes(Number(event.key)), key);
+
+    if (numbersArray.includes(Number(key))) {
+        buttonPressed(String(event.key));
+    }
+
+    else if (operationsArray.includes(key)) {
+        buttonPressed(key);
+    }
+
+    else if (event.key === ".") {
+        decimalPressed();
+    }
+
+    else if (event.key === "Enter" || event.key === "=") {
+        event.preventDefault();
+        equalsPressed();
+    }
+
+    else if (event.key === "Backspace") {
+        undoPressed();
+    }
+
+
+})
 
 
 function createNumberPad() {
@@ -39,7 +71,7 @@ function createOtherPad() {
         // https://www.reddit.com/r/learnjavascript/comments/twljtu/how_do_i_pass_arguments_to_a_function_inside/
 
         if (i === 1) {
-            square.addEventListener("click", event => {equalsPressed(screen.innerText)});
+            square.addEventListener("click", event => {equalsPressed(screen.textContent)});
         }
 
         if (i === 0) {
@@ -94,7 +126,6 @@ function undoPressed() {
         return "Empty!"
     }
 
-    console.log(valuesPressed);
     valuesPressed[valuesPressed.length-1] = String(valuesPressed.at(-1)).slice(0, -1);
 
     if (valuesPressed[valuesPressed.length-1] === "") {
@@ -106,7 +137,7 @@ function undoPressed() {
 
 
 function numberPressed(lastValuePressed, btnText) {
-    screen.innerText = screen.textContent + btnText;
+    screen.textContent = screen.textContent + btnText;
     lastValuePressed = lastValuePressed === undefined ? lastValuePressed : String(lastValuePressed);
     const isArrayLengthZero = valuesPressed.length !== 0;
     const isLastDigitNum = lastValuePressed === undefined || valuesPressed.length === 0 ? false : numbersArray.includes(Number(lastValuePressed.slice(-1)));
@@ -128,7 +159,7 @@ function operationPressed(btnText) {
         equalsPressed();
     } 
 
-    screen.innerText = screen.textContent + btnText;
+    screen.textContent = screen.textContent + btnText;
 }
 
 
@@ -184,7 +215,7 @@ function equalsPressed() {
     }
 
     else {
-        screen.innerText = result === "None" ? screen.innerText : result;
+        screen.textContent = result === "None" ? screen.textContent : result;
     }
     
 }
